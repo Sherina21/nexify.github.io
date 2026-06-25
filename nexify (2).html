@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nexify — Professional Web Development Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:    #0D0D0D;
+    --white:  #FFFFFF;
+    --slate:  #F4F6FA;
+    --mid:    #6B7280;
+    --accent: #3B5BDB;
+    --accent2:#7048E8;
+    --border: #E5E9F2;
+    --star:   #F59E0B;
+    --success:#10B981;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6%; height: 68px;
+    background: rgba(255,255,255,0.93);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--mid); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--white) !important; padding: 0.5rem 1.2rem; border-radius: 8px; font-weight: 600 !important; }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 6% 80px;
+    background: linear-gradient(160deg, #EEF2FF 0%, #F8F9FF 50%, #F0EBFF 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before { content: ''; position: absolute; top: -120px; right: -120px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59,91,219,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .hero::after  { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(112,72,232,0.10) 0%, transparent 70%); border-radius: 50%; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: white; border: 1px solid var(--border); border-radius: 50px;
+    padding: 0.4rem 1rem; font-size: 0.82rem; font-weight: 500; color: var(--accent);
+    margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(59,91,219,0.1);
+  }
+  .hero-badge span { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; display: inline-block; }
+
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 1.1rem; color: var(--mid); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.8; }
+
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 0.85rem 2rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(59,91,219,0.3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(59,91,219,0.4); }
+  .btn-secondary { background: white; color: var(--ink); padding: 0.85rem 2rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 1.5px solid var(--border); transition: border-color 0.2s, transform 0.2s; }
+  .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-label { font-size: 0.82rem; color: var(--mid); font-weight: 500; margin-top: 0.2rem; }
+
+  /* ── COMMON ── */
+  section { padding: 90px 6%; }
+  .section-tag { display: inline-block; background: #EEF2FF; color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 50px; margin-bottom: 1rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 1rem; }
+  .section-sub { font-size: 1rem; color: var(--mid); max-width: 520px; line-height: 1.8; }
+
+  /* ── SERVICES ── */
+  .services { background: var(--slate); }
+  .services-header { text-align: center; margin-bottom: 3.5rem; }
+  .services-header .section-sub { margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .service-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(59,91,219,0.1); }
+  .service-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; background: linear-gradient(135deg, #EEF2FF, #F0EBFF); }
+  .service-icon svg { width: 26px; height: 26px; }
+  .service-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .service-card p { font-size: 0.9rem; color: var(--mid); line-height: 1.75; }
+
+  /* ── RATINGS ── */
+  .ratings { background: white; }
+  .ratings-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .rating-big { text-align: center; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 24px; padding: 3rem 2rem; color: white; }
+  .rating-number { font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+  .rating-stars { font-size: 1.6rem; margin-bottom: 0.8rem; letter-spacing: 3px; }
+  .rating-label { font-size: 0.88rem; opacity: 0.85; }
+  .rating-bars { display: flex; flex-direction: column; gap: 1rem; }
+  .bar-row { display: flex; align-items: center; gap: 1rem; }
+  .bar-label { font-size: 0.85rem; font-weight: 500; width: 140px; color: var(--mid); }
+  .bar-track { flex: 1; height: 8px; background: var(--slate); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .bar-pct { font-size: 0.82rem; font-weight: 600; color: var(--accent); width: 38px; text-align: right; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--slate); }
+  .testimonials-header { text-align: center; margin-bottom: 3.5rem; }
+  .testimonials-header .section-sub { margin: 0 auto; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .t-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; }
+  .t-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.07); }
+  .t-stars { color: var(--star); font-size: 0.95rem; letter-spacing: 2px; margin-bottom: 1rem; }
+  .t-text { font-size: 0.92rem; color: #374151; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; }
+  .t-author { display: flex; align-items: center; gap: 0.9rem; }
+  .t-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: white; flex-shrink: 0; }
+  .t-name { font-weight: 600; font-size: 0.9rem; }
+  .t-role { font-size: 0.8rem; color: var(--mid); }
+
+  /* ── WHY US ── */
+  .why { background: white; }
+  .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .why-visual { background: linear-gradient(135deg, #EEF2FF 0%, #F0EBFF 100%); border-radius: 24px; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .why-metric { background: white; border-radius: 14px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 12px rgba(59,91,219,0.07); }
+  .why-metric-num { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .why-metric-label { font-size: 0.78rem; color: var(--mid); margin-top: 0.3rem; font-weight: 500; }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.8rem; }
+  .why-list li { display: flex; gap: 1rem; align-items: flex-start; }
+  .why-check { width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; margin-top: 2px; }
+  .why-list strong { font-weight: 600; font-size: 0.95rem; display: block; }
+  .why-list span { font-size: 0.87rem; color: var(--mid); }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--slate); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; max-width: 1100px; margin: 0 auto; }
+
+  .contact-info-cards { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
+  .ci-card { display: flex; align-items: center; gap: 1rem; background: white; border-radius: 14px; padding: 1.2rem 1.5rem; border: 1px solid var(--border); }
+  .ci-icon { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #EEF2FF, #F0EBFF); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ci-icon svg { width: 22px; height: 22px; }
+  .ci-label { font-size: 0.75rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .ci-value { font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+  .ci-value a { color: var(--ink); text-decoration: none; }
+  .ci-value a:hover { color: var(--accent); }
+
+  /* Form */
+  .contact-form-wrap { background: white; border-radius: 20px; padding: 2.5rem; border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(59,91,219,0.06); }
+  .contact-form-wrap h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .contact-form-wrap p { font-size: 0.88rem; color: var(--mid); margin-bottom: 1.8rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.75rem 1rem; border: 1.5px solid var(--border);
+    border-radius: 10px; font-size: 0.9rem; font-family: 'Inter', sans-serif;
+    color: var(--ink); background: #FAFBFF;
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none; width: 100%;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,91,219,0.1); background: white; }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    width: 100%; padding: 0.9rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; border: none; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(59,91,219,0.3);
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(59,91,219,0.4); }
+
+  .form-success {
+    display: none; text-align: center; padding: 2rem;
+    color: var(--success); font-weight: 600; font-size: 1rem;
+  }
+  .form-success .success-icon { display: flex; justify-content: center; margin-bottom: 0.8rem; }
+  .form-success .success-icon svg { width: 48px; height: 48px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--ink); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem 6%; font-size: 0.82rem; }
+  footer span { color: white; font-family: 'Syne', sans-serif; font-weight: 700; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .ratings-layout, .why-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    section { padding: 64px 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Nexify</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#ratings">Ratings</a></li>
+    <li><a href="#testimonials">Client Feedback</a></li>
+    <li><a href="#why">Why Nexify</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span></span> Trusted Web Development Partner — Sri Lanka</div>
+  <h1>Delivering <em>Professional Websites</em><br/>for Businesses of Every Scale</h1>
+  <p>Nexify provides end-to-end website design and development services tailored to the unique requirements of each client — from emerging startups to established enterprises across Sri Lanka.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">Request a Consultation</a>
+    <a href="#services" class="btn-secondary">Explore Our Services</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">120+</div>
+      <div class="stat-label">Websites Delivered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">Client Rating</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Satisfaction Rate</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">All</div>
+      <div class="stat-label">Business Sizes Served</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-tag">Our Services</div>
+    <h2 class="section-title">Comprehensive Web Solutions</h2>
+    <p class="section-sub">We offer a full spectrum of web development services, each delivered with precision, professionalism, and a commitment to long-term client success.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+      <h3>Custom Website Design</h3>
+      <p>We develop bespoke, brand-consistent designs built entirely to your specifications — ensuring your digital presence accurately reflects your organisation's identity and values.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+      <h3>E-Commerce Development</h3>
+      <p>Fully functional online retail platforms with secure payment integration, comprehensive product management, and conversion-optimised checkout experiences.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+      <h3>Mobile-Responsive Development</h3>
+      <p>Every website we produce is engineered to perform flawlessly across all devices and screen sizes, ensuring a consistent experience for all users.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h3>Website Modernisation</h3>
+      <p>We revitalise outdated digital platforms — upgrading design, enhancing performance, and realigning content to meet current industry standards and user expectations.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <h3>SEO & Performance Optimisation</h3>
+      <p>Our websites are built with search engine visibility and loading efficiency as core priorities, ensuring your business is discoverable and your visitors stay engaged.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+      <h3>Maintenance & Support</h3>
+      <p>We provide ongoing post-launch support including routine updates, security management, performance monitoring, and content amendments at your request.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RATINGS -->
+<section class="ratings" id="ratings">
+  <div class="ratings-layout">
+    <div class="rating-big">
+      <div class="rating-number">4.9</div>
+      <div class="rating-stars">★★★★★</div>
+      <div class="rating-label">Based on 85+ verified client reviews</div>
+    </div>
+    <div>
+      <div class="section-tag">Performance Ratings</div>
+      <h2 class="section-title">How Our Clients Rate Our Services</h2>
+      <p class="section-sub" style="margin-bottom:2rem;">Our ratings reflect our commitment to delivering quality across every dimension of the client experience.</p>
+      <div class="rating-bars">
+        <div class="bar-row">
+          <div class="bar-label">Design Quality</div>
+          <div class="bar-track"><div class="bar-fill" style="width:97%"></div></div>
+          <div class="bar-pct">4.9</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Communication</div>
+          <div class="bar-track"><div class="bar-fill" style="width:95%"></div></div>
+          <div class="bar-pct">4.8</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Delivery Timeline</div>
+          <div class="bar-track"><div class="bar-fill" style="width:93%"></div></div>
+          <div class="bar-pct">4.7</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Value for Investment</div>
+          <div class="bar-track"><div class="bar-fill" style="width:98%"></div></div>
+          <div class="bar-pct">4.9</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">After-Sales Support</div>
+          <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
+          <div class="bar-pct">4.8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-tag">Client Testimonials</div>
+    <h2 class="section-title">Feedback from Our Clients</h2>
+    <p class="section-sub">The following testimonials represent feedback received from businesses we have had the privilege of partnering with across Sri Lanka.</p>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Nexify delivered a website that far exceeded our expectations. The team demonstrated a thorough understanding of our industry and produced a professional platform that has meaningfully increased our client enquiries. Their communication throughout the project was exemplary."</p>
+      <div class="t-author">
+        <div class="t-avatar" style="background:linear-gradient(135deg,#3B5BDB,#7048E8)">DK</div>
+        <div><div class="t-name">Dinesh Karunarathne</div><div class="t-role">Owner, Spice Garden Restaurant — Kandy</div></div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"As a small business owner, I was concerned about the feasibility of investing in a professional website. Nexify worked within our financial parameters and delivered a result of remarkable quality. The impact on our online revenue within the first month was substantial."</p>
+      <div class="t-author">
+        <div class="t-avatar" style="background:linear-gradient(135deg,#7048E8,#E040FB)">FN</div>
+        <div><div class="t-name">Fathima Niloufer</div><div class="t-role">Founder, Silk & Thread Boutique — Colombo</div></div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Our previous website did not adequately represent the calibre of our engineering practice. Nexify completed a comprehensive revamp within three weeks, producing a modern, high-performance site that accurately reflects our professional standing. We are extremely satisfied."</p>
+      <div class="t-author">
+        <div class="t-avatar" style="background:linear-gradient(135deg,#0EA5E9,#3B5BDB)">RP</div>
+        <div><div class="t-name">Roshan Perera</div><div class="t-role">Director, RP Engineering Solutions — Gampaha</div></div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★☆</div>
+      <p class="t-text">"The Nexify team was patient and thorough in explaining each stage of the process, which I greatly valued as someone without a technical background. The website they developed for our institution has been instrumental in attracting new enrolments."</p>
+      <div class="t-author">
+        <div class="t-avatar" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">SM</div>
+        <div><div class="t-name">Sujatha Mendis</div><div class="t-role">Principal, Mendis Learning Hub — Kurunegala</div></div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Our previous digital platform was directly contributing to lost bookings. Following Nexify's intervention, we now have a professional, feature-rich website that has increased monthly enquiries by over 60%. The return on investment has been exceptional."</p>
+      <div class="t-author">
+        <div class="t-avatar" style="background:linear-gradient(135deg,#10B981,#0EA5E9)">AW</div>
+        <div><div class="t-name">Amali Wijesekara</div><div class="t-role">CEO, Ceylon Trails Travel — Colombo</div></div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Nexify delivered our corporate website on schedule and precisely to our brief. The design is refined and the technical performance is outstanding. We have since recommended their services to several professional associates without hesitation."</p>
+      <div class="t-author">
+        <div class="t-avatar" style="background:linear-gradient(135deg,#6366F1,#8B5CF6)">TJ</div>
+        <div><div class="t-name">Tharaka Jayasinghe</div><div class="t-role">Managing Partner, TJ Legal Associates — Colombo</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-layout">
+    <div>
+      <div class="section-tag">Why Choose Nexify</div>
+      <h2 class="section-title">A Committed Partner for Every Business</h2>
+      <p class="section-sub">We believe that access to a high-quality digital presence should not be limited by the size or sector of an organisation.</p>
+      <ul class="why-list">
+        <li>
+          <div class="why-check">✓</div>
+          <div><strong>Industry-Specific Expertise</strong><span>We take time to understand your sector, your audience, and your objectives before a single line of code is written.</span></div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div><strong>Transparent & Fixed Pricing</strong><span>All quotations are comprehensive and binding. Clients are never presented with unexpected costs upon project completion.</span></div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div><strong>Efficient Project Delivery</strong><span>The majority of our projects are completed within two to four weeks, without compromise to quality or detail.</span></div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div><strong>Full Client Ownership</strong><span>Upon delivery, all assets — including domain, source files, and content — belong entirely to the client. No lock-in agreements.</span></div>
+        </li>
+        <li>
+          <div class="why-check">✓</div>
+          <div><strong>Dedicated Local Support</strong><span>Operating from Colombo, we are readily accessible for consultations, revisions, and ongoing assistance whenever required.</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="why-visual">
+      <div class="why-metric"><div class="why-metric-num">120+</div><div class="why-metric-label">Websites Launched</div></div>
+      <div class="why-metric"><div class="why-metric-num">4.9★</div><div class="why-metric-label">Average Client Rating</div></div>
+      <div class="why-metric"><div class="why-metric-num">2–4 wks</div><div class="why-metric-label">Average Delivery Time</div></div>
+      <div class="why-metric"><div class="why-metric-num">100%</div><div class="why-metric-label">Client Asset Ownership</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-layout">
+    <!-- Left: info -->
+    <div>
+      <div class="section-tag">Contact Us</div>
+      <h2 class="section-title">Let's Discuss Your Project</h2>
+      <p class="section-sub">We welcome enquiries from businesses of all sizes. Please reach out via the form or through any of the contact details below, and a member of our team will respond within 24 hours.</p>
+      <div class="contact-info-cards">
+        <div class="ci-card">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l1.09-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div>
+            <div class="ci-label">Telephone</div>
+            <div class="ci-value"><a href="tel:0760100099">076 010 0099</a></div>
+          </div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <div class="ci-label">Email Address</div>
+            <div class="ci-value"><a href="mailto:sheri.ajee@outlook.com">sheri.ajee@outlook.com</a></div>
+          </div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="ci-label">Office Location</div>
+            <div class="ci-value">Colombo 06, Sri Lanka</div>
+          </div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3B5BDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="ci-label">Response Time</div>
+            <div class="ci-value">Within 24 Business Hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="contact-form-wrap">
+      <h3>Send Us an Enquiry</h3>
+      <p>Complete the form below and we will get back to you promptly to discuss how we can assist your business.</p>
+
+      <div id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Full Name <span style="color:#EF4444">*</span></label>
+            <input type="text" id="fname" placeholder="e.g. Amal Perera" />
+          </div>
+          <div class="form-group">
+            <label for="fphone">Phone Number <span style="color:#EF4444">*</span></label>
+            <input type="tel" id="fphone" placeholder="e.g. 07X XXX XXXX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="femail">Email Address <span style="color:#EF4444">*</span></label>
+          <input type="email" id="femail" placeholder="e.g. yourname@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="fmsg">Your Message <span style="color:#EF4444">*</span></label>
+          <textarea id="fmsg" placeholder="Please briefly describe your business and what you are looking to achieve with your website..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Submit Enquiry</button>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <span class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+        <strong>Thank you for your enquiry.</strong><br/>
+        A member of the Nexify team will be in touch within 24 business hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Nexify</span> — Professional Web Development Services &nbsp;·&nbsp; Colombo 06, Sri Lanka &nbsp;·&nbsp; sheri.ajee@outlook.com</p>
+</footer>
+
+<script>
+  function submitForm() {
+    const name  = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const msg   = document.getElementById('fmsg').value.trim();
+
+    if (!name || !phone || !email || !msg) {
+      alert('Please complete all required fields before submitting.');
+      return;
+    }
+    const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailReg.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
